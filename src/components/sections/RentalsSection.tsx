@@ -20,6 +20,8 @@ import { supplies, type SupplyItem } from "@/data/supplies";
 
 type Tab = "equipment" | "supplies";
 
+const INITIAL_RENTALS = 3;
+
 const SUPPLY_ICONS: Record<string, LucideIcon> = {
   "garland-kit": Wind,
   "foil-shapes": Star,
@@ -94,7 +96,7 @@ function AddButton({ onAdd }: { onAdd: () => void }) {
 function RentalCard({ item }: { item: RentalItem }) {
   const [qty, setQty] = useState(1);
   return (
-    <article className="group flex flex-col overflow-hidden rounded-3xl border border-brand-sand bg-white/70 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
+    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-brand-sand bg-white/70 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
       <div className="relative h-48 w-full overflow-hidden bg-brand-sand">
         <Image
           src={item.imageUrl}
@@ -145,7 +147,7 @@ function SupplyCard({ item }: { item: SupplyItem }) {
   const [qty, setQty] = useState(1);
   const Icon = SUPPLY_ICONS[item.id] ?? Sparkles;
   return (
-    <article className="flex flex-col rounded-3xl border border-brand-sand bg-white/70 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
+    <article className="flex h-full flex-col rounded-3xl border border-brand-sand bg-white/70 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5">
       <div className="flex items-start justify-between gap-3">
         <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blush/60 text-brand-slate">
           <Icon className="h-6 w-6" />
@@ -173,9 +175,12 @@ function SupplyCard({ item }: { item: SupplyItem }) {
 
 export default function RentalsSection() {
   const [tab, setTab] = useState<Tab>("equipment");
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleRentals = showAll ? rentals : rentals.slice(0, INITIAL_RENTALS);
 
   return (
-    <section id="rentals" className="scroll-mt-24 bg-brand-sand/40 py-24 sm:py-32">
+    <section id="rentals" className="scroll-mt-24 bg-brand-sand/40 py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
@@ -222,17 +227,43 @@ export default function RentalsSection() {
           </div>
         </div>
 
-        {/* Grids */}
+        {/* Grids: horizontal snap-scroll on mobile, grid on larger screens */}
         {tab === "equipment" ? (
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rentals.map((item) => (
-              <RentalCard key={item.id} item={item} />
-            ))}
-          </div>
+          <>
+            <div className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3">
+              {visibleRentals.map((item) => (
+                <div
+                  key={item.id}
+                  className="w-[78%] flex-none snap-start sm:w-auto"
+                >
+                  <RentalCard item={item} />
+                </div>
+              ))}
+            </div>
+
+            {rentals.length > INITIAL_RENTALS && (
+              <div className="mt-8 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAll((v) => !v)}
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-brand-slate/15 bg-white/70 px-6 text-sm font-semibold text-brand-slate transition-all duration-300 hover:bg-brand-slate hover:text-brand-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
+                >
+                  {showAll
+                    ? "Show Less"
+                    : "View Full Rental Inventory (+)"}
+                </button>
+              </div>
+            )}
+          </>
         ) : (
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3">
             {supplies.map((item) => (
-              <SupplyCard key={item.id} item={item} />
+              <div
+                key={item.id}
+                className="w-[78%] flex-none snap-start sm:w-auto"
+              >
+                <SupplyCard item={item} />
+              </div>
             ))}
           </div>
         )}

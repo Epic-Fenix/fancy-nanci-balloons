@@ -162,7 +162,7 @@ export default function QuoteWizard() {
   return (
     <section
       id="cotizador"
-      className="scroll-mt-20 bg-brand-sand/40 py-24 sm:py-32"
+      className="scroll-mt-20 bg-brand-sand/40 py-12 md:py-16"
     >
       <div className="mx-auto max-w-3xl px-6">
         {/* Header */}

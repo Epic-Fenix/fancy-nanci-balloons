@@ -23,11 +23,15 @@ const FILTERS: Filter[] = [
 export default function PortfolioGallery() {
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
   const [selected, setSelected] = useState<PortfolioProject | null>(null);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const projects =
     activeFilter === "All"
       ? portfolioProjects
       : portfolioProjects.filter((p) => p.category === activeFilter);
+
+  const visibleProjects = projects.slice(0, visibleCount);
+  const hasMore = projects.length > visibleCount;
 
   // Close on Escape + lock body scroll while the lightbox is open.
   useEffect(() => {
@@ -47,7 +51,7 @@ export default function PortfolioGallery() {
   }, [selected]);
 
   return (
-    <section id="galeria" className="scroll-mt-20 bg-brand-cream py-24 sm:py-32">
+    <section id="galeria" className="scroll-mt-20 bg-brand-cream py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
@@ -72,7 +76,10 @@ export default function PortfolioGallery() {
               <button
                 key={filter}
                 type="button"
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setVisibleCount(6);
+                }}
                 aria-pressed={isActive}
                 className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream ${
                   isActive
@@ -88,7 +95,7 @@ export default function PortfolioGallery() {
 
         {/* Masonry grid */}
         <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {projects.map((project) => (
+          {visibleProjects.map((project) => (
             <button
               key={project.id}
               type="button"
@@ -130,6 +137,18 @@ export default function PortfolioGallery() {
             </button>
           ))}
         </div>
+
+        {hasMore && (
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              onClick={() => setVisibleCount(projects.length)}
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-brand-slate/15 bg-white/70 px-6 text-sm font-semibold text-brand-slate transition-all duration-300 hover:bg-brand-slate hover:text-brand-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
+            >
+              Explore More Work
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Lightbox modal */}

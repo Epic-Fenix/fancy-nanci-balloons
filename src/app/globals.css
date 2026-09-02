@@ -53,6 +53,11 @@ label {
   bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
 }
 
+/* Back-to-top sits above the floating WhatsApp button */
+.backtop-safe {
+  bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+}
+
 @keyframes brand-float {
   0%,
   100% {

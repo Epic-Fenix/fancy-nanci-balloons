@@ -4,6 +4,12 @@ import { ArrowRight, Star, Trophy } from "lucide-react";
  * Landing hero. Soft blurred balloons in the background and CTAs to the
  * quote wizard and the portfolio gallery.
  */
+const QUICK_LINKS = [
+  { emoji: "🎈", title: "Luxury Styling", hint: "Arches & backdrops", href: "#galeria" },
+  { emoji: "🪑", title: "Rentals & Supplies", hint: "Tables, chairs & more", href: "#rentals" },
+  { emoji: "🎓", title: "Masterclasses", hint: "Learn from Nanci", href: "#academy" },
+];
+
 export default function HeroSection() {
   return (
     <section
@@ -58,6 +64,25 @@ export default function HeroSection() {
           >
             View Portfolio
           </a>
+        </div>
+
+        {/* Quick-access intent selector */}
+        <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
+          {QUICK_LINKS.map((q) => (
+            <a
+              key={q.href}
+              href={q.href}
+              className="group flex items-center gap-3 rounded-2xl border border-brand-sand bg-white/60 px-4 py-3 text-left backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-champagne/60 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne sm:flex-col sm:items-start sm:gap-1.5"
+            >
+              <span className="text-2xl">{q.emoji}</span>
+              <span className="flex flex-col">
+                <span className="text-sm font-semibold text-brand-slate">
+                  {q.title}
+                </span>
+                <span className="text-xs text-brand-muted">{q.hint}</span>
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import Footer from "@/components/common/Footer";
+import BackToTop from "@/components/common/BackToTop";
 import Navbar from "@/components/common/Navbar";
 import WhatsAppFloating from "@/components/common/WhatsAppFloating";
 import HeroSection from "@/components/sections/HeroSection";
@@ -26,6 +27,7 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppFloating />
+      <BackToTop />
     </>
   );
 }

@@ -33,7 +33,7 @@ export default function ServicesSection() {
   };
 
   return (
-    <section id="services" className="scroll-mt-24 bg-brand-cream py-24 sm:py-32">
+    <section id="services" className="scroll-mt-24 bg-brand-cream py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">

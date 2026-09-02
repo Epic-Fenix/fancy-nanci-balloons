@@ -25,7 +25,7 @@ export default function FAQSection() {
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
 
   return (
-    <section id="faq" className="scroll-mt-24 bg-brand-cream py-24 sm:py-32">
+    <section id="faq" className="scroll-mt-24 bg-brand-cream py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">

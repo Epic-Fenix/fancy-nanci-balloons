@@ -15,7 +15,7 @@ export default function AcademySection() {
   };
 
   return (
-    <section id="academy" className="scroll-mt-24 bg-brand-cream py-24 sm:py-32">
+    <section id="academy" className="scroll-mt-24 bg-brand-cream py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           {/* Photo */}
