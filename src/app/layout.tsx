@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import BackToTop from "@/components/common/BackToTop";
 import Footer from "@/components/common/Footer";
 import JsonLd from "@/components/common/JsonLd";
+import ScrollToTop from "@/components/common/ScrollToTop";
 import Navbar from "@/components/common/Navbar";
 import StickyNav from "@/components/common/StickyNav";
 import WhatsAppFloating from "@/components/common/WhatsAppFloating";
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <JsonLd />
+        <ScrollToTop />
         <Navbar />
         <StickyNav />
         {children}
