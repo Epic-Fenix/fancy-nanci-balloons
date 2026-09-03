@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: false,
+  compiler: {
+    removeConsole: { exclude: ["error"] },
+  },
   images: {
     remotePatterns: [
       {
@@ -20,6 +24,18 @@ const nextConfig: NextConfig = {
       { source: "/services", destination: "/quote", permanent: true },
       { source: "/reviews", destination: "/quote", permanent: true },
       { source: "/faq", destination: "/quote", permanent: true },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "origin-when-cross-origin" },
+        ],
+      },
     ];
   },
 };

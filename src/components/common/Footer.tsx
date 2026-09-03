@@ -78,6 +78,12 @@ export default function Footer() {
                 <InstagramIcon className="h-4 w-4" />@{INSTAGRAM_HANDLE}
               </a>
               <a
+                href="tel:15623254921"
+                className="text-neutral-300 hover:text-white transition-colors text-sm font-medium flex items-center gap-2"
+              >
+                📞 (562) 325-4921
+              </a>
+              <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
