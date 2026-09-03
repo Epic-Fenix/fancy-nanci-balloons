@@ -1,6 +1,7 @@
 ﻿import BackToTop from "@/components/common/BackToTop";
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
+import StickyNav from "@/components/common/StickyNav";
 import WhatsAppFloating from "@/components/common/WhatsAppFloating";
 import AcademySection from "@/components/sections/AcademySection";
 import HeroSection from "@/components/sections/HeroSection";
@@ -16,9 +17,11 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <StickyNav />
       <main className="bg-brand-cream">
         <HeroSection />
         <ServicesSection />
+        <div id="portfolio" className="scroll-mt-24" />
         <PortfolioGallery />
         <ReelsShowcase />
         <RentalsSection />

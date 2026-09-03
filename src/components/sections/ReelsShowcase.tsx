@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { Play, Video } from "lucide-react";
 
 interface Reel {
@@ -31,6 +34,35 @@ const REELS: Reel[] = [
 ];
 
 export default function ReelsShowcase() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Play videos only while visible; pause when they leave the viewport.
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    const videos = Array.from(root.querySelectorAll("video"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            void video.play().catch(() => {
+              /* autoplay may be blocked; poster remains */
+            });
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+
+    videos.forEach((v) => observer.observe(v));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="reels" className="scroll-mt-24 bg-brand-cream py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-6">
@@ -50,7 +82,10 @@ export default function ReelsShowcase() {
         </div>
 
         {/* Reels: horizontal snap-scroll on mobile, 3-up grid on larger screens */}
-        <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0">
+        <div
+          ref={containerRef}
+          className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0"
+        >
           {REELS.map((reel) => (
             <figure
               key={reel.id}
@@ -60,11 +95,10 @@ export default function ReelsShowcase() {
                 className="aspect-[9/16] h-full w-full object-cover"
                 src={reel.src}
                 poster={reel.poster}
-                autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="none"
               />
 
               {/* "Watch Setup" badge */}
