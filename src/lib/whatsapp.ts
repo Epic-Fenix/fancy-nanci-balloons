@@ -4,7 +4,7 @@ import type { QuoteFormData } from "@/types/quote";
  * Business WhatsApp number (international format, no "+").
  * Temporary test line for Fancy Nanci Balloons.
  */
-export const WHATSAPP_PHONE = "15623254921";
+export const WHATSAPP_PHONE = "51939719872";
 
 /**
  * Builds a wa.me link with the inquiry details laid out as an elegant,
