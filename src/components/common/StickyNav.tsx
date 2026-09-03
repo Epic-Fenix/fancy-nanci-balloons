@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Reels", href: "#reels" },
-  { label: "Rentals", href: "#rentals" },
-  { label: "Academy", href: "#academy" },
+  { label: "Home", href: "/" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Rentals", href: "/rentals" },
+  { label: "Academy", href: "/academy" },
+  { label: "Quote", href: "/quote" },
 ];
 
 export default function StickyNav() {
@@ -22,7 +23,7 @@ export default function StickyNav() {
 
   return (
     <nav
-      aria-label="Section navigation"
+      aria-label="Quick navigation"
       className={`fixed bottom-8 left-1/2 z-[60] max-w-[90vw] -translate-x-1/2 transition-all duration-300 sm:bottom-6 ${
         visible
           ? "translate-y-0 opacity-100"
@@ -32,12 +33,12 @@ export default function StickyNav() {
       <ul className="glass flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full border border-brand-champagne/40 bg-brand-cream/85 px-2 py-1.5 shadow-sm backdrop-blur-md [scrollbar-width:none] sm:gap-1">
         {LINKS.map((link) => (
           <li key={link.href}>
-            <a
+            <Link
               href={link.href}
-              className="block rounded-full px-3 py-1.5 text-xs font-medium text-brand-slate transition-colors duration-200 hover:bg-brand-champagne/20 hover:text-brand-champagne sm:text-sm"
+              className="block whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-brand-slate transition-colors duration-200 hover:bg-brand-champagne/20 hover:text-brand-champagne sm:text-sm"
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

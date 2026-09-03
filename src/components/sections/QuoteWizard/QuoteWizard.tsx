@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 
 import { generateWhatsAppQuoteLink } from "@/lib/whatsapp";
+import { clearQuoteIntent, readQuoteIntent } from "@/lib/quoteIntent";
 import type {
   BalloonServiceStyle,
   BudgetRange,
@@ -157,6 +158,46 @@ export default function QuoteWizard() {
       window.removeEventListener("fnb:add-rental", onRental);
       window.removeEventListener("fnb:academy-interest", onAcademy);
     };
+  }, []);
+
+  // Merge any cross-page intent (from /rentals, /academy, or a service card)
+  // captured in sessionStorage before landing on this page.
+  useEffect(() => {
+    const intent = readQuoteIntent();
+    if (!intent) return;
+    clearQuoteIntent();
+
+    // Deferred so the merge runs after mount (not synchronously in the effect).
+    const id = window.setTimeout(() => {
+      setData((prev) => {
+        const next = { ...prev };
+        if (intent.styles && intent.styles.length > 0) {
+          const set = new Set<BalloonServiceStyle>(prev.serviceStyles);
+          intent.styles.forEach((st) => set.add(st as BalloonServiceStyle));
+          next.serviceStyles = Array.from(set);
+        }
+        if (intent.rentals && intent.rentals.length > 0) {
+          const rentals = [...prev.rentals];
+          intent.rentals.forEach((ir) => {
+            const idx = rentals.findIndex((r) => r.name === ir.name);
+            if (idx >= 0) {
+              rentals[idx] = {
+                ...rentals[idx],
+                quantity: rentals[idx].quantity + ir.quantity,
+              };
+            } else {
+              rentals.push({ name: ir.name, quantity: ir.quantity });
+            }
+          });
+          next.rentals = rentals;
+        }
+        if (intent.academy) next.academyInterest = true;
+        return next;
+      });
+      if (intent.styles && intent.styles.length > 0) setStep(2);
+    }, 0);
+
+    return () => window.clearTimeout(id);
   }, []);
 
   return (

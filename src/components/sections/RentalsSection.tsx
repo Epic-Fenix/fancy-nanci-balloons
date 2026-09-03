@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import {
   Check,
@@ -17,6 +18,7 @@ import {
 
 import { rentals, type RentalItem } from "@/data/rentals";
 import { supplies, type SupplyItem } from "@/data/supplies";
+import { addIntentRental } from "@/lib/quoteIntent";
 
 type Tab = "equipment" | "supplies";
 
@@ -29,9 +31,8 @@ const SUPPLY_ICONS: Record<string, LucideIcon> = {
 };
 
 function addToQuote(name: string, quantity: number) {
-  window.dispatchEvent(
-    new CustomEvent("fnb:add-rental", { detail: { name, quantity } }),
-  );
+  // Stored for the quote wizard, which lives on the /quote route.
+  addIntentRental(name, quantity);
 }
 
 function QuantityStepper({
@@ -268,7 +269,16 @@ export default function RentalsSection() {
           </div>
         )}
 
-        <p className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-2 text-center text-sm text-brand-muted">
+        <div className="mt-10 text-center">
+          <Link
+            href="/quote"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-slate px-7 text-sm font-semibold text-brand-cream transition-all duration-300 hover:bg-brand-champagne hover:text-brand-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
+          >
+            Continue to Your Quote &rarr;
+          </Link>
+        </div>
+
+        <p className="mx-auto mt-6 flex max-w-xl items-center justify-center gap-2 text-center text-sm text-brand-muted">
           <PartyPopper className="h-4 w-4 flex-none text-brand-champagne" />
           Delivery, setup &amp; pickup available across LA &amp; Orange County.
         </p>

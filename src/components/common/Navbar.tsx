@@ -1,21 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Portfolio", href: "#galeria" },
-  { label: "Rentals", href: "#rentals" },
-  { label: "Academy", href: "#academy" },
-  { label: "Quote", href: "#cotizador" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Rentals", href: "/rentals" },
+  { label: "Academy", href: "/academy" },
+  { label: "Quote", href: "/quote" },
 ];
 
 function Wordmark() {
   return (
-    <a href="#inicio" className="flex items-center gap-3">
+    <Link href="/" className="flex items-center gap-3">
       <Image
         src="/portfolio/logo.jpg"
         alt="Fancy Nanci Balloons logo"
@@ -32,7 +31,7 @@ function Wordmark() {
           Balloons
         </span>
       </span>
-    </a>
+    </Link>
   );
 }
 
@@ -48,23 +47,23 @@ export default function Navbar() {
         <ul className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className="text-sm font-medium text-brand-slate/80 transition-colors duration-200 hover:text-brand-champagne"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-2">
-          <a
-            href="#cotizador"
+          <Link
+            href="/quote"
             className="hidden h-10 items-center rounded-full bg-brand-slate px-5 text-sm font-medium text-brand-cream transition-all duration-300 hover:bg-brand-champagne hover:text-brand-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream sm:inline-flex"
           >
             Get a Quote
-          </a>
+          </Link>
 
           {/* Mobile toggle */}
           <button
@@ -89,23 +88,23 @@ export default function Navbar() {
         <ul className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="block rounded-xl px-3 py-2.5 text-base font-medium text-brand-slate transition-colors duration-200 hover:bg-brand-sand/60 hover:text-brand-champagne"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li className="mt-2">
-            <a
-              href="#cotizador"
+            <Link
+              href="/quote"
               onClick={() => setOpen(false)}
               className="block rounded-full bg-brand-slate px-5 py-3 text-center text-base font-medium text-brand-cream transition-colors duration-300 hover:bg-brand-champagne hover:text-brand-slate"
             >
               Get a Quote
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

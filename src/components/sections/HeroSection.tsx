@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Star, Trophy } from "lucide-react";
 
 /**
@@ -5,9 +6,9 @@ import { ArrowRight, Star, Trophy } from "lucide-react";
  * quote wizard and the portfolio gallery.
  */
 const QUICK_LINKS = [
-  { emoji: "🎈", title: "Luxury Styling", hint: "Arches & backdrops", href: "#galeria" },
-  { emoji: "🪑", title: "Rentals & Supplies", hint: "Tables, chairs & more", href: "#rentals" },
-  { emoji: "🎓", title: "Masterclasses", hint: "Learn from Nanci", href: "#academy" },
+  { emoji: "🎈", title: "Luxury Styling", hint: "Arches & backdrops", href: "/portfolio" },
+  { emoji: "🪑", title: "Rentals & Supplies", hint: "Tables, chairs & more", href: "/rentals" },
+  { emoji: "🎓", title: "Masterclasses", hint: "Learn from Nanci", href: "/academy" },
 ];
 
 export default function HeroSection() {
@@ -50,26 +51,26 @@ export default function HeroSection() {
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="#cotizador"
+          <Link
+            href="/quote"
             className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-slate px-7 text-base font-medium text-brand-cream shadow-lg shadow-brand-slate/20 transition-all duration-300 hover:bg-brand-champagne hover:text-brand-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
           >
             Get a Quote
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
+          </Link>
 
-          <a
-            href="#galeria"
+          <Link
+            href="/portfolio"
             className="inline-flex h-12 items-center justify-center rounded-full border border-brand-sand bg-brand-cream px-7 text-base font-medium text-brand-slate transition-all duration-300 hover:border-brand-champagne hover:bg-brand-sand/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
           >
             View Portfolio
-          </a>
+          </Link>
         </div>
 
         {/* Quick-access intent selector */}
         <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
           {QUICK_LINKS.map((q) => (
-            <a
+            <Link
               key={q.href}
               href={q.href}
               className="group flex items-center gap-3 rounded-2xl border border-brand-sand bg-white/60 px-4 py-3 text-left backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-champagne/60 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne sm:flex-col sm:items-start sm:gap-1.5"
@@ -81,7 +82,7 @@ export default function HeroSection() {
                 </span>
                 <span className="text-xs text-brand-muted">{q.hint}</span>
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

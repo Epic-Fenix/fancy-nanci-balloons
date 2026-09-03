@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Sparkles, X } from "lucide-react";
 
@@ -206,14 +207,14 @@ export default function PortfolioGallery() {
                 </div>
               </div>
 
-              <a
-                href="#cotizador"
+              <Link
+                href="/quote"
                 onClick={() => setSelected(null)}
                 className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-slate px-6 text-base font-medium text-brand-cream transition-all duration-300 hover:bg-brand-champagne hover:text-brand-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream"
               >
                 Request Similar Setup
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

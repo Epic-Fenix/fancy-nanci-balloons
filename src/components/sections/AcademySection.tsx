@@ -1,7 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Award, Check, GraduationCap, Sparkles } from "lucide-react";
+
+import { setIntentAcademy } from "@/lib/quoteIntent";
 
 const WORKSHOP_POINTS = [
   "Organic styling & color theory",
@@ -11,7 +14,8 @@ const WORKSHOP_POINTS = [
 
 export default function AcademySection() {
   const handleInquire = () => {
-    window.dispatchEvent(new CustomEvent("fnb:academy-interest"));
+    // Flag interest for the quote wizard on the /quote route.
+    setIntentAcademy();
   };
 
   return (
@@ -92,14 +96,14 @@ export default function AcademySection() {
                 ))}
               </ul>
 
-              <a
-                href="#cotizador"
+              <Link
+                href="/quote"
                 onClick={handleInquire}
                 className="group mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-brand-champagne px-6 text-sm font-semibold text-brand-slate transition-all duration-300 hover:bg-brand-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-slate"
               >
                 Inquire About Masterclasses
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
