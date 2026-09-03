@@ -14,7 +14,7 @@ export default function JsonLd() {
     image: `${SITE_URL}/portfolio/logo.jpg`,
     logo: `${SITE_URL}/portfolio/logo.jpg`,
     url: SITE_URL,
-    telephone: "+51939719872",
+    telephone: "+15623254921",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",

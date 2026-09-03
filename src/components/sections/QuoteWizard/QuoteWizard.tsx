@@ -469,14 +469,12 @@ export default function QuoteWizard() {
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             ) : (
-              <a
-                href={canSubmit ? whatsappLink : undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-disabled={!canSubmit}
-                onClick={(e) => {
-                  if (!canSubmit) e.preventDefault();
-                }}
+              <button
+                type="button"
+                disabled={!canSubmit}
+                onClick={() =>
+                  window.open(whatsappLink, "_blank", "noopener,noreferrer")
+                }
                 className={`inline-flex h-11 items-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-brand-cream ${
                   canSubmit
                     ? "bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 hover:brightness-105"
@@ -485,7 +483,7 @@ export default function QuoteWizard() {
               >
                 <Send className="h-4 w-4" />
                 Send Inquiry via WhatsApp
-              </a>
+              </button>
             )}
           </div>
         </div>
